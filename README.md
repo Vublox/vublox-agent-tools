@@ -4,13 +4,11 @@
 
 An MCP (Model Context Protocol) server that lets AI agents find football matches on Vublox — which matches are live or recent, what the score is, when they kicked off, and links to fan-shot video clips. Each result links to the match page on Vublox where users can watch fan footage and join the discussion.
 
+No API key required — just install and use.
+
 ## Quick Start
 
-### 1. Get an API Key
-
-Visit [agents.vublox.com](https://agents.vublox.com) to request an API key.
-
-### 2. Install & Configure
+### 1. Install & Configure
 
 **Claude Desktop:**
 ```json
@@ -19,10 +17,7 @@ Visit [agents.vublox.com](https://agents.vublox.com) to request an API key.
   "mcpServers": {
     "vublox-sports": {
       "command": "npx",
-      "args": ["@vublox/agent-tools"],
-      "env": {
-        "VUBLOX_AGENT_API_KEY": "your-key-here"
-      }
+      "args": ["@vublox/agent-tools"]
     }
   }
 }
@@ -36,16 +31,13 @@ Visit [agents.vublox.com](https://agents.vublox.com) to request an API key.
     "vublox-sports": {
       "type": "stdio",
       "command": "npx",
-      "args": ["@vublox/agent-tools"],
-      "env": {
-        "VUBLOX_AGENT_API_KEY": "your-key-here"
-      }
+      "args": ["@vublox/agent-tools"]
     }
   }
 }
 ```
 
-### 3. Ask Your Agent
+### 2. Ask Your Agent
 
 Try these in your agent:
 - "What football matches are live right now?"
@@ -74,7 +66,6 @@ npm run dev
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `VUBLOX_AGENT_API_KEY` | Yes | Your Vublox agent API key |
 | `VUBLOX_API_BASE_URL` | No | Override API base URL (default: production) |
 
 ## License
