@@ -2,7 +2,7 @@
 
 > **Let AI agents discover live football matches and fan clips on Vublox.**
 
-An MCP (Model Context Protocol) server that lets AI agents find football matches on Vublox — which matches are live or recent, what the score is, and when they kicked off. Each result links to the match page on Vublox where users can watch fan-shot footage, see full stats, and join the discussion.
+An MCP (Model Context Protocol) server that lets AI agents find football matches on Vublox — which matches are live or recent, what the score is, when they kicked off, and links to fan-shot video clips. Each result links to the match page on Vublox where users can watch fan footage and join the discussion.
 
 ## Quick Start
 
@@ -50,7 +50,7 @@ Visit [agents.vublox.com](https://agents.vublox.com) to request an API key.
 Try these in your agent:
 - "What football matches are live right now?"
 - "How did Arsenal do today?"
-- "Show me today's Premier League goals"
+- "Show me today's Premier League scores"
 - "Tell me about the Barcelona vs Real Madrid match"
 
 ## Available Tools
@@ -59,8 +59,8 @@ Try these in your agent:
 |------|-------------|
 | `search_sports_events` | Search matches by team, league, or keyword |
 | `get_live_matches` | All currently live football matches |
-| `get_match_summary` | Match summary for a specific match |
-| `get_todays_goals` | Goals scored across leagues (last 48h) |
+| `get_match_summary` | Match info for a specific match |
+| `get_todays_goals` | Recent match scores across leagues (last 48h) |
 | `get_recent_matches` | Recently finished matches (last 48h) |
 
 ## Local Development
