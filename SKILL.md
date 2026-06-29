@@ -9,23 +9,6 @@ user-invocable: true
 
 This skill helps AI agents answer football questions using match summaries from Vublox — live scores, key events, and match context.
 
-## What Data Is Available
-
-Vublox licenses match data from sports data providers. What can be shared via API:
-
-- **Live scores** — teams, current score, elapsed time for matches in progress
-- **Key events** — goals, cards, and substitutions with player names and minute
-- **Recent results** — finished matches from the last 48 hours
-- **Match search** — find matches by team name, league, or keyword
-
-What lives on Vublox (not available via API):
-
-- Fan-shot footage from different angles at the match
-- Complete match statistics and lineups
-- Match discussion, community features, and historical archives
-
-Each match summary includes a link to the full match page on Vublox where users can find everything above.
-
 ## Available Tools
 
 When configured with the Vublox MCP server (`@vublox/agent-tools`):
