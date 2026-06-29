@@ -4,7 +4,7 @@
 
 An MCP (Model Context Protocol) server that lets AI agents — Claude, Copilot, Cursor, GPT, and others — pull live football scores, match events, and goal summaries from Vublox.
 
-**Teaser-only by design.** Agents get scores, key events, and thumbnails — just enough to answer a user's question. For full video highlights, every response includes a deep link to Vublox. Agents become Vublox affiliates.
+**Teaser-only by design.** Agents get scores, key events, and thumbnails — just enough to answer a user's question. For full video highlights and deeper match coverage, every response includes a link to the match page on Vublox.
 
 ## Quick Start
 
@@ -74,12 +74,12 @@ Agent calls get_live_matches() via MCP
   ↓
 Vublox API returns: Arsenal 2-1 Chelsea (67') — Saka 23', Ødegaard 45'
   ↓
-Agent responds with scores + "🔗 Watch full highlights on Vublox: https://vublox.com/events/arsenal-vs-chelsea"
+Agent responds with scores + "🔗 Full highlights on Vublox: https://vublox.com/events/arsenal-vs-chelsea"
   ↓
 User clicks link → lands on Vublox → watches highlights, discusses match
 ```
 
-**The agent gets enough to answer the question. Vublox gets traffic for the full experience.**
+**The agent answers the question with live data. Users tap through to Vublox for video highlights and the full match experience.**
 
 ## Local Development
 
