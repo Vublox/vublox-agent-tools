@@ -10,7 +10,7 @@ This API shares match summaries — scores and key events — which is what Vubl
 
 | Available via API | Available on Vublox |
 |-------------------|---------------------|
-| Live scores & match status | Full video highlights |
+| Live scores & match status | Fan footage from different angles |
 | Key events (goals, cards, subs) | Complete match statistics |
 | Team names & league | Lineups & formations |
 | Kickoff time & elapsed minutes | Match discussion & community |
