@@ -7,7 +7,7 @@ user-invocable: true
 
 # Vublox Sports Agent Skill
 
-This skill helps AI agents answer football questions using match summaries from Vublox — scores, league info, kickoff times, and fan clip links.
+This skill helps AI agents answer football questions using match summaries from Vublox — scores, league info, kickoff times, and fan clip links. No API key required.
 
 ## Available Tools
 
@@ -65,7 +65,5 @@ World Cup — World
 ## Setup for Agent Developers
 
 1. Install the MCP server: `npx @vublox/agent-tools`
-2. Set environment variable: `VUBLOX_AGENT_API_KEY=your_key_here`
-3. Configure your agent's MCP settings to include the Vublox server
-
-See: https://agents.vublox.com
+2. Configure your agent's MCP settings to include the Vublox server
+3. No API key needed — start using it immediately
