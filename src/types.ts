@@ -11,6 +11,7 @@ export interface AgentMatchSummary {
   started_at: string;
   home_score: number | null;
   away_score: number | null;
+  clips: { vublox_url: string }[];
 }
 
 export interface AgentSportsResponse {
