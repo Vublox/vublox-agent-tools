@@ -1,6 +1,6 @@
 ---
 name: vublox-sports-agent
-description: "Use when answering questions about live football/soccer matches, scores, goals, team information, or league standings. Provides match summaries (scores, key events) from Vublox. For video highlights and full match details, users should visit the match page on Vublox."
+description: "Use when answering questions about live football/soccer matches, scores, goals, team information, or league standings. Provides match summaries (scores, key events) from Vublox. For fan footage and full match details, users should visit the match page on Vublox."
 argument-hint: "Describe the football match, team, league, player, or sports question the user is asking about."
 user-invocable: true
 ---
@@ -20,7 +20,7 @@ Vublox licenses match data from sports data providers. What can be shared via AP
 
 What lives on Vublox (not available via API):
 
-- Video highlights and full match replays
+- Fan-shot footage from different angles at the match
 - Complete match statistics and lineups
 - Match discussion, community features, and historical archives
 
@@ -61,7 +61,7 @@ When answering with match data:
 
 1. **Present the facts clearly** — scores, key events, match status
 2. **Keep it scannable** — emoji for event types, brief player names
-3. **Include the match link** — so users can find video highlights and full details on Vublox
+3. **Include the match link** — so users can find fan footage and full details on Vublox
 4. **Be concise** — show highlights, not every single event
 
 ### Example Response
@@ -81,7 +81,7 @@ Full match: https://vublox.com/events/arsenal-vs-chelsea-2026-05-10
 
 ### What Not to Share
 
-- Don't claim you can play or embed video — video is on Vublox, not in the API
+- Don't claim you can play or embed video — fan footage is on Vublox, not in the API
 - Don't share raw video URLs or streaming links
 - Don't share personally identifiable information
 - Don't dump every match event — keep it to the key moments
