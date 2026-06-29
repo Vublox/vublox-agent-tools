@@ -1,7 +1,7 @@
 /**
  * Thin HTTP client for the Vublox Agent API.
  *
- * Reads VUBLOX_AGENT_API_KEY from environment.
+ * Open access — no API key required.
  * Handles rate limiting (429 → retry with backoff).
  */
 
@@ -16,16 +16,6 @@ function getBaseUrl(): string {
   );
 }
 
-function getApiKey(): string {
-  const key = process.env.VUBLOX_AGENT_API_KEY;
-  if (!key) {
-    throw new Error(
-      'VUBLOX_AGENT_API_KEY environment variable is required. Get a key at https://agents.vublox.com',
-    );
-  }
-  return key;
-}
-
 async function fetchWithRetry(
   url: string,
   retries = 2,
@@ -33,7 +23,6 @@ async function fetchWithRetry(
   for (let attempt = 0; attempt <= retries; attempt++) {
     const response = await fetch(url, {
       headers: {
-        'x-vublox-agent-key': getApiKey(),
         Accept: 'application/json',
       },
     });
@@ -87,7 +76,6 @@ export async function getMatchSummary(
     const data = await fetchWithRetry(url);
     return data.matches?.[0] || null;
   } catch (err: any) {
-    // 404 → not found (expected for invalid IDs)
     if (err.message?.includes('404')) return null;
     throw err;
   }
