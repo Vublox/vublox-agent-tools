@@ -3,8 +3,8 @@
 /**
  * Vublox Agent Tools — MCP Server
  *
- * Provides AI agents with live football match summaries from Vublox:
- * scores, key events, and match context.
+ * Provides AI agents with football match discovery from Vublox:
+ * which matches are live or recent, scores, and kickoff times.
  * For fan footage and full match details, each response includes a
  * link to the match page on Vublox.
  *
@@ -28,40 +28,13 @@ import {
 import type { AgentMatchSummary, AgentSportsResponse } from './types.js';
 
 // ═══════════════════════════════════════════════════════════════
-// Text Formatters — build concise, scannable agent responses
+// Text Formatters
 // ═══════════════════════════════════════════════════════════════
 
-const EVENT_EMOJI: Record<string, string> = {
-  goal: '⚽',
-  yellow_card: '🟨',
-  red_card: '🟥',
-  penalty: '✅',
-  penalty_missed: '❌',
-  own_goal: '😬',
-  substitution: '🔄',
-  penalty_scored: '✅',
-};
-
 function formatMatch(m: AgentMatchSummary): string {
-  const statusLabel =
-    m.status === 'live'
-      ? `${m.elapsed_minutes ?? '?'}'`
-      : 'FT';
-
-  const scoreLine = `${m.home_team.name} ${m.home_team.score ?? '-'}-${m.away_team.score ?? '-'} ${m.away_team.name}`;
-  const header = `${scoreLine} (${statusLabel}) — ${m.league}`;
-
-  const events = m.key_events
-    .slice(0, 5)
-    .map(
-      (e) =>
-        `  ${EVENT_EMOJI[e.type] || '•'} ${e.description}`,
-    )
-    .join('\n');
-
-  const link = `\n🔗 Match page: ${m.vublox_url}`;
-
-  return [header, events, link].filter(Boolean).join('\n');
+  const statusLabel = m.status === 'live' ? 'LIVE' : 'FT';
+  const scoreLine = `${m.home_score ?? '-'}-${m.away_score ?? '-'}`;
+  return `${m.name} ${scoreLine} (${statusLabel}) — ${m.league}\n🔗 Match page: ${m.vublox_url}`;
 }
 
 function formatMatchList(response: AgentSportsResponse): string {
@@ -75,50 +48,16 @@ function formatMatchList(response: AgentSportsResponse): string {
   return [...lines, footer].join('\n\n');
 }
 
-function formatGoalList(response: AgentSportsResponse): string {
-  const goalsOnly = response.matches.flatMap((m) =>
-    m.key_events
-      .filter(
-        (e) =>
-          e.type === 'goal' ||
-          e.type === 'penalty' ||
-          e.type === 'own_goal' ||
-          e.type === 'penalty_scored',
-      )
-      .map((e) => ({
-        ...e,
-        matchName: m.name,
-        league: m.league,
-        vublox_url: m.vublox_url,
-      })),
+function formatScoreList(response: AgentSportsResponse): string {
+  if (!response.matches.length) {
+    return `No recent matches found.\n\n🔗 Explore matches on Vublox: ${response.attribution.url}`;
+  }
+
+  const lines = response.matches.map(
+    (m) => `  ${m.home_score ?? '-'}-${m.away_score ?? '-'}  ${m.name} — ${m.league}`,
   );
 
-  if (!goalsOnly.length) {
-    return `No goals found in recent matches.\n\n🔗 Explore matches on Vublox: ${response.attribution.url}`;
-  }
-
-  const byLeague = new Map<string, typeof goalsOnly>();
-  for (const g of goalsOnly) {
-    const list = byLeague.get(g.league) || [];
-    list.push(g);
-    byLeague.set(g.league, list);
-  }
-
-  const lines: string[] = ["Recent goals:\n"];
-
-  for (const [league, goals] of byLeague) {
-    lines.push(`${league}:`);
-    for (const g of goals.slice(0, 8)) {
-      lines.push(
-        `  ⚽ ${g.player || 'Goal'} ${g.minute}' — ${g.matchName}`,
-      );
-    }
-    lines.push('');
-  }
-
-  lines.push(`🔗 More on Vublox: ${response.attribution.url}`);
-
-  return lines.join('\n');
+  return [`Recent scores:\n`, ...lines, `\n🔗 More on Vublox: ${response.attribution.url}`].join('\n');
 }
 
 function formatMatchDetail(summary: AgentMatchSummary | null): string {
@@ -151,7 +90,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'search_sports_events',
       description:
-        'Search for live or recent football (soccer) matches on Vublox by team name, league, or keyword. Returns match summaries with scores and key events. Each result includes a link to the match page on Vublox for fan footage and full details.',
+        'Search for live or recent football (soccer) matches on Vublox by team name, league, or keyword. Returns match names, scores, and links to match pages on Vublox for fan footage and full details.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -167,7 +106,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_live_matches',
       description:
-        'Get all currently live football (soccer) matches with live scores via Vublox. Returns match summaries with current scores and elapsed time. Each result includes a link to the match page on Vublox.',
+        'Get all currently live football (soccer) matches with scores via Vublox. Each result includes a link to the match page on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -176,7 +115,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_match_summary',
       description:
-        'Get a match summary for a specific football match by Vublox event ID, including key events (goals, cards, substitutions). Includes a link to the match page on Vublox.',
+        'Get basic match info for a specific football match by Vublox event ID. Includes a link to the match page on Vublox for fan footage and full details.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -192,7 +131,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_todays_goals',
       description:
-        'Get goals from recent football matches (last 48 hours) across all leagues via Vublox. Returns a list of goals scored with players, times, and match context. Each result includes a link to the match page on Vublox.',
+        'Get recent football match scores (last 48 hours) across all leagues via Vublox. Each result includes a link to the match page on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -201,7 +140,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_recent_matches',
       description:
-        'Get recently finished football matches (last 48 hours) via Vublox. Returns final scores and key events. Each result includes a link to the match page on Vublox.',
+        'Get recently finished football matches (last 48 hours) via Vublox. Returns final scores and links to match pages on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -265,7 +204,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case 'get_todays_goals': {
         const result = await getRecentMatches();
         return {
-          content: [{ type: 'text', text: formatGoalList(result) }],
+          content: [{ type: 'text', text: formatScoreList(result) }],
         };
       }
 
