@@ -1,8 +1,20 @@
 # Vublox Agent Tools
 
-> **Live football data for AI agents — scores, match events, and goal summaries via MCP.**
+> **Live football scores and match events for AI agents — via MCP.**
 
-An MCP (Model Context Protocol) server that gives AI agents access to structured football match data from Vublox: live scores, key events (goals, cards, substitutions), team lineups, and league information.
+An MCP (Model Context Protocol) server that gives AI agents access to structured football match summaries from Vublox: live scores, key events (goals, cards, substitutions), and match context.
+
+## What This Provides
+
+This API shares match summaries — scores and key events — which is what Vublox is licensed to distribute. For the full match experience, each response includes a link to the match page on Vublox:
+
+| Available via API | Available on Vublox |
+|-------------------|---------------------|
+| Live scores & match status | Full video highlights |
+| Key events (goals, cards, subs) | Complete match statistics |
+| Team names & league | Lineups & formations |
+| Kickoff time & elapsed minutes | Match discussion & community |
+| — | Historical match archives |
 
 ## Quick Start
 
@@ -59,18 +71,9 @@ Try these in your agent:
 |------|-------------|
 | `search_sports_events` | Search matches by team, league, or keyword |
 | `get_live_matches` | All currently live football matches |
-| `get_match_summary` | Detailed match data for a specific match |
+| `get_match_summary` | Match summary for a specific match |
 | `get_todays_goals` | Goals scored across leagues (last 48h) |
 | `get_recent_matches` | Recently finished matches (last 48h) |
-
-## What You Get
-
-Each match response includes:
-
-- **Match info** — teams, league, kickoff time, status
-- **Scores** — home and away, including live scores for in-progress matches
-- **Key events** — goals, cards, substitutions with player names and minutes
-- **Match link** — URL to the full match page on Vublox with video highlights, discussion, and timeline
 
 ## Local Development
 
