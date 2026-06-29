@@ -1,7 +1,7 @@
 {
   "name": "@vublox/agent-tools",
   "version": "0.1.0",
-  "description": "MCP server that lets AI agents pull live sports scores, match events, and goal summaries from Vublox. Teaser-only — directs users to Vublox for full video highlights.",
+  "description": "MCP server that gives AI agents access to live football scores, match events, and goal summaries from Vublox. Each result includes a link to the match page on Vublox for fan footage and full details.",
   "license": "MIT",
   "author": "Vublox",
   "repository": {
