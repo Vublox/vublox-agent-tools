@@ -1,10 +1,8 @@
 # Vublox Agent Tools
 
-> **Add live sports to your AI agent in 5 minutes.**
+> **Live football data for AI agents — scores, match events, and goal summaries via MCP.**
 
-An MCP (Model Context Protocol) server that lets AI agents — Claude, Copilot, Cursor, GPT, and others — pull live football scores, match events, and goal summaries from Vublox.
-
-**Teaser-only by design.** Agents get scores, key events, and thumbnails — just enough to answer a user's question. For full video highlights and deeper match coverage, every response includes a link to the match page on Vublox.
+An MCP (Model Context Protocol) server that gives AI agents access to structured football match data from Vublox: live scores, key events (goals, cards, substitutions), team lineups, and league information.
 
 ## Quick Start
 
@@ -61,25 +59,18 @@ Try these in your agent:
 |------|-------------|
 | `search_sports_events` | Search matches by team, league, or keyword |
 | `get_live_matches` | All currently live football matches |
-| `get_match_summary` | Detailed teaser for a specific match |
-| `get_todays_goals` | Goals scored today across leagues |
-| `get_recent_matches` | Recently finished matches (48h) |
+| `get_match_summary` | Detailed match data for a specific match |
+| `get_todays_goals` | Goals scored across leagues (last 48h) |
+| `get_recent_matches` | Recently finished matches (last 48h) |
 
-## How It Works
+## What You Get
 
-```
-User: "What's the Arsenal score?"
-  ↓
-Agent calls get_live_matches() via MCP
-  ↓
-Vublox API returns: Arsenal 2-1 Chelsea (67') — Saka 23', Ødegaard 45'
-  ↓
-Agent responds with scores + "🔗 Full highlights on Vublox: https://vublox.com/events/arsenal-vs-chelsea"
-  ↓
-User clicks link → lands on Vublox → watches highlights, discusses match
-```
+Each match response includes:
 
-**The agent answers the question with live data. Users tap through to Vublox for video highlights and the full match experience.**
+- **Match info** — teams, league, kickoff time, status
+- **Scores** — home and away, including live scores for in-progress matches
+- **Key events** — goals, cards, substitutions with player names and minutes
+- **Match link** — URL to the full match page on Vublox with video highlights, discussion, and timeline
 
 ## Local Development
 
