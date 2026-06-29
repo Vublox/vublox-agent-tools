@@ -6,7 +6,7 @@ An MCP (Model Context Protocol) server that gives AI agents access to structured
 
 ## What This Provides
 
-This API shares match summaries — scores and key events — which is what Vublox is licensed to distribute. For the full match experience, each response includes a link to the match page on Vublox:
+Each match response includes scores and key events. For the full match experience, a link to the match page on Vublox is included:
 
 | Available via API | Available on Vublox |
 |-------------------|---------------------|
