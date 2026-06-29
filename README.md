@@ -1,20 +1,8 @@
 # Vublox Agent Tools
 
-> **Live football scores and match events for AI agents — via MCP.**
+> **Let AI agents discover live football matches and fan clips on Vublox.**
 
-An MCP (Model Context Protocol) server that gives AI agents access to structured football match summaries from Vublox: live scores, key events (goals, cards, substitutions), and match context.
-
-## What This Provides
-
-Each match response includes scores and key events. For the full match experience, a link to the match page on Vublox is included:
-
-| Available via API | Available on Vublox |
-|-------------------|---------------------|
-| Live scores & match status | Fan footage from different angles |
-| Key events (goals, cards, subs) | Complete match statistics |
-| Team names & league | Lineups & formations |
-| Kickoff time & elapsed minutes | Match discussion & community |
-| — | Historical match archives |
+An MCP (Model Context Protocol) server that lets AI agents find football matches on Vublox — which matches are live or recent, what the score is, and when they kicked off. Each result links to the match page on Vublox where users can watch fan-shot footage, see full stats, and join the discussion.
 
 ## Quick Start
 
