@@ -34,7 +34,16 @@ import type { AgentMatchSummary, AgentSportsResponse } from './types.js';
 function formatMatch(m: AgentMatchSummary): string {
   const statusLabel = m.status === 'live' ? 'LIVE' : 'FT';
   const scoreLine = `${m.home_score ?? '-'}-${m.away_score ?? '-'}`;
-  return `${m.name} ${scoreLine} (${statusLabel}) — ${m.league}\n🔗 Match page: ${m.vublox_url}`;
+  let result = `${m.name} ${scoreLine} (${statusLabel}) — ${m.league}\n🔗 Match page: ${m.vublox_url}`;
+
+  if (m.clips?.length) {
+    const clipLinks = m.clips
+      .map((c) => `  🎥 Fan clip: ${c.vublox_url}`)
+      .join('\n');
+    result += '\n' + clipLinks;
+  }
+
+  return result;
 }
 
 function formatMatchList(response: AgentSportsResponse): string {
@@ -90,7 +99,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'search_sports_events',
       description:
-        'Search for live or recent football (soccer) matches on Vublox by team name, league, or keyword. Returns match names, scores, and links to match pages on Vublox for fan footage and full details.',
+        'Search for live or recent football (soccer) matches on Vublox by team name, league, or keyword. Returns match names, scores, clip links, and match page links on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -106,7 +115,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_live_matches',
       description:
-        'Get all currently live football (soccer) matches with scores via Vublox. Each result includes a link to the match page on Vublox.',
+        'Get all currently live football (soccer) matches with scores via Vublox. Each result includes links to the match page and fan clips on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -115,7 +124,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_match_summary',
       description:
-        'Get basic match info for a specific football match by Vublox event ID. Includes a link to the match page on Vublox for fan footage and full details.',
+        'Get basic match info for a specific football match by Vublox event ID. Includes links to the match page and fan clips on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -131,7 +140,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_todays_goals',
       description:
-        'Get recent football match scores (last 48 hours) across all leagues via Vublox. Each result includes a link to the match page on Vublox.',
+        'Get recent football match scores (last 48 hours) across all leagues via Vublox. Each result includes links to match pages on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -140,7 +149,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     {
       name: 'get_recent_matches',
       description:
-        'Get recently finished football matches (last 48 hours) via Vublox. Returns final scores and links to match pages on Vublox.',
+        'Get recently finished football matches (last 48 hours) via Vublox. Returns final scores and links to match pages and fan clips on Vublox.',
       inputSchema: {
         type: 'object',
         properties: {},
